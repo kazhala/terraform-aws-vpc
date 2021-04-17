@@ -1,0 +1,15 @@
+name: Generate terraform docs
+on: [push, pull_request]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Render terraform docs and push changes back
+        uses: terraform-docs/gh-actions@v0.6.0
+        with:
+          working-dir: .
+          output-file: README.md
+          output-method: inject
+          git-push: 'true'
