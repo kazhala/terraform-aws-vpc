@@ -1,6 +1,6 @@
 # terraform_aws_vpc
 
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -41,5 +41,5 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | n/a |
-<!-- END_TF_DOCS -->
+| <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | ID of the newly created VPC. |
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
