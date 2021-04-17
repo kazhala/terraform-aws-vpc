@@ -76,3 +76,47 @@ resource "aws_route_table_association" "public_rtt_association" {
   subnet_id      = aws_subnet.public_subnet[count.index].id
   route_table_id = aws_route_table.public_rtt.id
 }
+
+data "aws_iam_policy_document" "flowlog_assumerole" {
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["vpc-flow-logs.amazonaws.com"]
+    }
+  }
+}
+
+data "aws_iam_policy_document" "flowlog_permission" {
+  statement {
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+      "logs:DescribeLogGroups",
+      "logs:DescribeLogStreams",
+    ]
+  }
+}
+
+resource "aws_iam_role" "flowlog_role" {
+  name_prefix        = "vpc-flow-log-role-"
+  assume_role_policy = data.aws_iam_policy_document.flowlog_assumerole.json
+}
+
+resource "aws_iam_policy" "flowlog_policy" {
+  name_prefix = "vpc-flow-log-cloudwatch-"
+  policy      = data.aws_iam_policy_document.flowlog_permission.json
+}
+
+resource "aws_flow_log" "vpc_flowlog" {
+  iam_role_arn         = aws_iam_role.flowlog_role.arn
+  log_destination_type = "cloud-watch-logs"
+  vpc_id               = aws_vpc.vpc.id
+  traffic_type         = "ALL"
+}
