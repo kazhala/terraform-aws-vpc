@@ -50,7 +50,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_private_subnets"></a> [private\_subnets](#output\_private\_subnets) | Private subnet arns. |
-| <a name="output_public_subnets"></a> [public\_subnets](#output\_public\_subnets) | Public subnet arns. |
+| <a name="output_private_subnets"></a> [private\_subnets](#output\_private\_subnets) | Private subnet ids. |
+| <a name="output_public_subnets"></a> [public\_subnets](#output\_public\_subnets) | Public subnet ids. |
 | <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | ID of the newly created VPC. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

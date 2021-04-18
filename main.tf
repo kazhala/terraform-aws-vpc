@@ -9,7 +9,7 @@ terraform {
 
 locals {
   subnet_ids   = ["A", "B", "C"]
-  subnet_count = max(min(var.subnet_count, 0), 3)
+  subnet_count = max(min(var.subnet_count, 1), 3)
 }
 
 resource "aws_vpc" "vpc" {
