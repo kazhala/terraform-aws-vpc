@@ -50,6 +50,18 @@ resource "aws_subnet" "private_subnet" {
   }
 }
 
+resource "aws_subnet" "db_subnet" {
+  count                   = local.subnet_count
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = cidrsubnet(var.cidr_block, 8, count.index + 6)
+  availability_zone_id    = data.aws_availability_zones.azs.zone_ids[count.index]
+  map_public_ip_on_launch = true
+
+  tags = {
+    "Name" = "${var.vpc_name}-Database${local.subnet_ids[count.index]}"
+  }
+}
+
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
 
@@ -123,7 +135,7 @@ resource "aws_iam_role_policy_attachment" "flowlog_policy_attachment" {
 
 resource "aws_cloudwatch_log_group" "flowlog_group" {
   count             = var.enable_vpc_flowlog ? 1 : 0
-  name_prefix       = var.vpc_flowlog_loggroup
+  name_prefix       = var.flowlog_log_group_prefix
   retention_in_days = 0
 }
 
