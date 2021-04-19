@@ -29,7 +29,6 @@ No modules.
 | [aws_internet_gateway.igw](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway) | resource |
 | [aws_route_table.public_rtt](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
 | [aws_route_table_association.public_rtt_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association) | resource |
-| [aws_subnet.db_subnet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
 | [aws_subnet.private_subnet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
 | [aws_subnet.public_subnet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
 | [aws_vpc.vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) | resource |
@@ -44,7 +43,7 @@ No modules.
 | <a name="input_cidr_block"></a> [cidr\_block](#input\_cidr\_block) | CIDR block for the new VPC. | `string` | `"10.0.0.0/16"` | no |
 | <a name="input_enable_vpc_flowlog"></a> [enable\_vpc\_flowlog](#input\_enable\_vpc\_flowlog) | Enable flowlog for the new VPC. | `bool` | `true` | no |
 | <a name="input_flowlog_log_group_prefix"></a> [flowlog\_log\_group\_prefix](#input\_flowlog\_log\_group\_prefix) | CloudWatch log group prefix for flowlogs. | `string` | `"/aws/vpc/flowlogs/"` | no |
-| <a name="input_subnet_count"></a> [subnet\_count](#input\_subnet\_count) | Number of subnets to create for each environment (Public, Private, Database). | `number` | `3` | no |
+| <a name="input_subnet_count"></a> [subnet\_count](#input\_subnet\_count) | Number of subnets to create for each type (Public, Private). | `number` | `3` | no |
 | <a name="input_vpc_name"></a> [vpc\_name](#input\_vpc\_name) | Name tag for the new VPC. | `string` | n/a | yes |
 
 ## Outputs

@@ -43,22 +43,10 @@ resource "aws_subnet" "private_subnet" {
   vpc_id                  = aws_vpc.vpc.id
   cidr_block              = cidrsubnet(var.cidr_block, 8, count.index + 3)
   availability_zone_id    = data.aws_availability_zones.azs.zone_ids[count.index]
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = false
 
   tags = {
     "Name" = "${var.vpc_name}-Private${local.subnet_ids[count.index]}"
-  }
-}
-
-resource "aws_subnet" "db_subnet" {
-  count                   = local.subnet_count
-  vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = cidrsubnet(var.cidr_block, 8, count.index + 6)
-  availability_zone_id    = data.aws_availability_zones.azs.zone_ids[count.index]
-  map_public_ip_on_launch = true
-
-  tags = {
-    "Name" = "${var.vpc_name}-Database${local.subnet_ids[count.index]}"
   }
 }
 
