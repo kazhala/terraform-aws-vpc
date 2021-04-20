@@ -12,7 +12,7 @@ variable "cidr_block" {
 variable "subnet_count" {
   default     = 3
   type        = number
-  description = "Number of subnets to create for each type (Public, Private)."
+  description = "Number of subnets to create for each type (Public, Private, Database)."
 }
 
 variable "enable_vpc_flowlog" {
