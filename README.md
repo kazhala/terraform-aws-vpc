@@ -26,13 +26,13 @@ No modules.
 | [aws_iam_policy.flowlog_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.flowlog_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy_attachment.flowlog_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_internet_gateway.igw](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway) | resource |
-| [aws_route_table.public_rtt](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
-| [aws_route_table_association.public_rtt_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association) | resource |
-| [aws_subnet.private_subnet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
-| [aws_subnet.public_subnet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
-| [aws_vpc.vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) | resource |
-| [aws_availability_zones.azs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
+| [aws_internet_gateway.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway) | resource |
+| [aws_route_table.public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
+| [aws_route_table_association.public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association) | resource |
+| [aws_subnet.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
+| [aws_subnet.public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
+| [aws_vpc.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc) | resource |
+| [aws_availability_zones.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
 | [aws_iam_policy_document.flowlog_assumerole](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.flowlog_permission](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
@@ -42,9 +42,12 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_cidr_block"></a> [cidr\_block](#input\_cidr\_block) | CIDR block for the new VPC. | `string` | `"10.0.0.0/16"` | no |
 | <a name="input_enable_vpc_flowlog"></a> [enable\_vpc\_flowlog](#input\_enable\_vpc\_flowlog) | Enable flowlog for the new VPC. | `bool` | `true` | no |
-| <a name="input_flowlog_log_group_prefix"></a> [flowlog\_log\_group\_prefix](#input\_flowlog\_log\_group\_prefix) | CloudWatch log group prefix for flowlogs. | `string` | `"/aws/vpc/flowlogs/"` | no |
+| <a name="input_flowlog_log_group_prefix"></a> [flowlog\_log\_group\_prefix](#input\_flowlog\_log\_group\_prefix) | CloudWatch log group prefix for flowlogs. VPC name will be appended after this value. | `string` | `"/aws/vpc/flowlogs"` | no |
+| <a name="input_flowlog_retention_in_days"></a> [flowlog\_retention\_in\_days](#input\_flowlog\_retention\_in\_days) | Specifies the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653, and 0. If you select 0, the events in the log group are always retained and never expire. | `string` | `0` | no |
+| <a name="input_name"></a> [name](#input\_name) | Name for the new VPC. | `string` | n/a | yes |
+| <a name="input_subnet_cidr_newbits"></a> [subnet\_cidr\_newbits](#input\_subnet\_cidr\_newbits) | Number of additional bits with which to extend the CIDR block for subnets. If cidr\_block is "/16" with subnet\_cidr\_newbits equals 8 then the subnet will have CIDR blocks in "/24". | `number` | `8` | no |
 | <a name="input_subnet_count"></a> [subnet\_count](#input\_subnet\_count) | Number of subnets to create for each type (Public, Private). | `number` | `3` | no |
-| <a name="input_vpc_name"></a> [vpc\_name](#input\_vpc\_name) | Name tag for the new VPC. | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | Additional resource tags to apply to applicable resources. Format: {"key" = "value"} | `map(string)` | `{}` | no |
 
 ## Outputs
 
