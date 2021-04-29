@@ -21,7 +21,7 @@ variable "subnet_count" {
   description = "Number of subnets to create for each type (Public, Private)."
 }
 
-variable "enable_vpc_flowlog" {
+variable "vpc_flowlog_enable" {
   default     = true
   type        = bool
   description = "Enable flowlog for the new VPC."

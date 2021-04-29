@@ -113,7 +113,7 @@ data "aws_iam_policy_document" "flowlog_permission" {
 }
 
 resource "aws_iam_role" "flowlog_role" {
-  count = var.enable_vpc_flowlog ? 1 : 0
+  count = var.vpc_flowlog_enable ? 1 : 0
 
   name_prefix        = "vpc-flowlog-${var.name}-"
   assume_role_policy = data.aws_iam_policy_document.flowlog_assumerole.json
@@ -127,21 +127,21 @@ resource "aws_iam_role" "flowlog_role" {
 }
 
 resource "aws_iam_policy" "flowlog_policy" {
-  count = var.enable_vpc_flowlog ? 1 : 0
+  count = var.vpc_flowlog_enable ? 1 : 0
 
   name_prefix = "vpc-flowlog-${var.name}-"
   policy      = data.aws_iam_policy_document.flowlog_permission.json
 }
 
 resource "aws_iam_role_policy_attachment" "flowlog_policy_attachment" {
-  count = var.enable_vpc_flowlog ? 1 : 0
+  count = var.vpc_flowlog_enable ? 1 : 0
 
   role       = aws_iam_role.flowlog_role[0].name
   policy_arn = aws_iam_policy.flowlog_policy[0].arn
 }
 
 resource "aws_cloudwatch_log_group" "flowlog_group" {
-  count = var.enable_vpc_flowlog ? 1 : 0
+  count = var.vpc_flowlog_enable ? 1 : 0
 
   name_prefix       = "${var.flowlog_log_group_prefix}/${var.name}/"
   retention_in_days = var.flowlog_retention_in_days
@@ -155,7 +155,7 @@ resource "aws_cloudwatch_log_group" "flowlog_group" {
 }
 
 resource "aws_flow_log" "vpc_flowlog" {
-  count = var.enable_vpc_flowlog ? 1 : 0
+  count = var.vpc_flowlog_enable ? 1 : 0
 
   iam_role_arn         = aws_iam_role.flowlog_role[0].arn
   log_destination_type = "cloud-watch-logs"
