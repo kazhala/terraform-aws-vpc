@@ -1,46 +1,61 @@
 variable "name" {
+  description = "The VPC Name."
   type        = string
-  description = "Name for the new VPC."
 }
 
 variable "cidr_block" {
-  default     = "10.0.0.0/16"
+  description = "The VPC CIDR block."
   type        = string
-  description = "CIDR block for the new VPC."
+  default     = "10.0.0.0/16"
 }
 
 variable "subnet_cidr_newbits" {
-  default     = 8
-  type        = number
-  description = "Number of additional bits with which to extend the CIDR block for subnets. If cidr_block is \"/16\" with subnet_cidr_newbits equals 8 then the subnet will have CIDR blocks in \"/24\"."
+  description = <<EOF
+Number of additional bits with which to extend the CIDR block for subnets.
+If cidr_block is \"/16\" with subnet_cidr_newbits equals 8 then the subnet will have CIDR blocks in \"/24\"."
+EOF
+
+  type    = number
+  default = 8
 }
 
 variable "subnet_count" {
-  default     = 3
-  type        = number
   description = "Number of subnets to create for each type (Public, Private)."
+  type        = number
+  default     = 3
 }
 
-variable "vpc_flowlog_enable" {
-  default     = true
+variable "enable_vpc_flow_log" {
+  description = "Enable VPC flow logs."
   type        = bool
-  description = "Enable flowlog for the new VPC."
+  default     = true
 }
 
-variable "flowlog_log_group_prefix" {
+variable "flow_log_log_group_prefix" {
+  description = "CloudWatch log group prefix for flow logs. VPC name will be appended after this value."
+  type        = string
   default     = "/aws/vpc/flowlogs"
-  type        = string
-  description = "CloudWatch log group prefix for flowlogs. VPC name will be appended after this value."
 }
 
-variable "flowlog_retention_in_days" {
-  default     = 0
+variable "flow_log_retention_in_days" {
+  description = <<EOF
+Specifies the number of days you want to retain log events in the specified log group.
+Allowed values: 1 | 3 | 5 | 7 | 14 | 30 | 60 | 90 | 120 | 150 | 180 | 365 | 400 | 545 | 731 | 1827 | 3653 | 0.
+If you select 0, the events in the log group are always retained and never expire."
+EOF
+
+  type    = string
+  default = 0
+}
+
+variable "kms_key_id" {
+  description = "The ARN of the KMS Key to use when encrypting log data."
   type        = string
-  description = "Specifies the number of days you want to retain log events in the specified log group. Possible values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653, and 0. If you select 0, the events in the log group are always retained and never expire."
+  default     = null
 }
 
 variable "tags" {
-  default     = {}
-  type        = map(string)
   description = "Additional resource tags to apply to applicable resources. Format: {\"key\" = \"value\"}"
+  type        = map(string)
+  default     = {}
 }
