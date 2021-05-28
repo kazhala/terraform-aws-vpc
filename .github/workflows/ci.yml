@@ -1,8 +1,6 @@
 name: CI
 on: [push, pull_request]
 
-runs-on
-
 jobs:
   Lint:
     runs-on: ubuntu-latest
@@ -28,4 +26,3 @@ jobs:
         name: Install dependencies
       - run: checkov -d .
         name: Run checkov
-
