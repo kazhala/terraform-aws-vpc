@@ -18,6 +18,10 @@ resource "aws_vpc" "this" {
     },
     var.tags
   )
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_subnet" "public" {
@@ -35,6 +39,10 @@ resource "aws_subnet" "public" {
     },
     var.tags
   )
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_subnet" "private" {
@@ -51,6 +59,10 @@ resource "aws_subnet" "private" {
     },
     var.tags
   )
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_network_acl" "public" {
@@ -63,6 +75,10 @@ resource "aws_network_acl" "public" {
     },
     var.tags
   )
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_network_acl" "private" {
@@ -75,6 +91,10 @@ resource "aws_network_acl" "private" {
     },
     var.tags
   )
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_network_acl_rule" "public_ingress" {
@@ -122,6 +142,10 @@ resource "aws_internet_gateway" "this" {
     },
     var.tags
   )
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_route_table" "public" {
@@ -133,6 +157,10 @@ resource "aws_route_table" "public" {
     },
     var.tags
   )
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_route_table" "private" {
@@ -144,6 +172,10 @@ resource "aws_route_table" "private" {
     },
     var.tags
   )
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_route" "igw" {
@@ -205,6 +237,10 @@ resource "aws_iam_role" "flow_log" {
     },
     var.tags
   )
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_iam_policy" "flow_log" {
