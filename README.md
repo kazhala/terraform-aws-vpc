@@ -12,7 +12,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.37.0 |
 
 ## Modules
 
@@ -64,20 +64,9 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_private_nacl"></a> [private\_nacl](#output\_private\_nacl) | The ID of the private NACL. |
-| <a name="output_private_nacl_arn"></a> [private\_nacl\_arn](#output\_private\_nacl\_arn) | The ARN of the private ACL. |
-| <a name="output_private_route_table_arns"></a> [private\_route\_table\_arns](#output\_private\_route\_table\_arns) | List of ARNs of the private route tables. |
-| <a name="output_private_route_tables"></a> [private\_route\_tables](#output\_private\_route\_tables) | List of IDs of the private route tables. |
-| <a name="output_private_subnet_arns"></a> [private\_subnet\_arns](#output\_private\_subnet\_arns) | List of ARNs of the private subnets. |
-| <a name="output_private_subnet_cidr_blocks"></a> [private\_subnet\_cidr\_blocks](#output\_private\_subnet\_cidr\_blocks) | List of cidr blocks of the private subnets. |
-| <a name="output_private_subnets"></a> [private\_subnets](#output\_private\_subnets) | List of IDs of the private subnets. |
-| <a name="output_public_nacl"></a> [public\_nacl](#output\_public\_nacl) | The ID of the public NACL. |
-| <a name="output_public_nacl_arn"></a> [public\_nacl\_arn](#output\_public\_nacl\_arn) | The ARN of the public ACL. |
-| <a name="output_public_route_table_arns"></a> [public\_route\_table\_arns](#output\_public\_route\_table\_arns) | List of ARNs of the public route tables. |
-| <a name="output_public_route_tables"></a> [public\_route\_tables](#output\_public\_route\_tables) | List of IDs of the public route tables. |
-| <a name="output_public_subnet_arns"></a> [public\_subnet\_arns](#output\_public\_subnet\_arns) | List of ARNs of the public subnets. |
-| <a name="output_public_subnet_cidr_blocks"></a> [public\_subnet\_cidr\_blocks](#output\_public\_subnet\_cidr\_blocks) | List of cidr blocks of the public subnets. |
-| <a name="output_public_subnets"></a> [public\_subnets](#output\_public\_subnets) | List of IDs of the public subnets. |
-| <a name="output_vpc_arn"></a> [vpc\_arn](#output\_vpc\_arn) | The ARN of the VPC. |
-| <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id) | The ID of the VPC. |
+| <a name="output_aws_internet_gateway"></a> [aws\_internet\_gateway](#output\_aws\_internet\_gateway) | Internet gateway deployed for the VPC. |
+| <a name="output_aws_nacl"></a> [aws\_nacl](#output\_aws\_nacl) | NACL deployed in the VPC. |
+| <a name="output_aws_route_table"></a> [aws\_route\_table](#output\_aws\_route\_table) | Route table deployed in the VPC. |
+| <a name="output_aws_subnet"></a> [aws\_subnet](#output\_aws\_subnet) | All subnets deployed in the VPC. |
+| <a name="output_aws_vpc"></a> [aws\_vpc](#output\_aws\_vpc) | Outputs of AWS VPC. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
