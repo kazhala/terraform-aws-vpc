@@ -12,12 +12,7 @@ resource "aws_vpc" "this" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 
-  tags = merge(
-    {
-      Name = var.name
-    },
-    var.tags
-  )
+  tags = merge({ Name = var.name }, var.tags)
 
   lifecycle {
     create_before_destroy = true
@@ -33,12 +28,7 @@ resource "aws_subnet" "public" {
   availability_zone_id    = data.aws_availability_zones.this.zone_ids[count.index]
   map_public_ip_on_launch = true
 
-  tags = merge(
-    {
-      Name = "${var.name}-Public${count.index}"
-    },
-    var.tags
-  )
+  tags = merge({ Name = "${var.name}-Public${count.index}" }, var.tags)
 
   lifecycle {
     create_before_destroy = true
@@ -53,12 +43,7 @@ resource "aws_subnet" "private" {
   availability_zone_id    = data.aws_availability_zones.this.zone_ids[count.index]
   map_public_ip_on_launch = false
 
-  tags = merge(
-    {
-      Name = "${var.name}-Private${count.index}"
-    },
-    var.tags
-  )
+  tags = merge({ Name = "${var.name}-Private${count.index}" }, var.tags)
 
   lifecycle {
     create_before_destroy = true
@@ -69,12 +54,7 @@ resource "aws_network_acl" "public" {
   vpc_id     = aws_vpc.this.id
   subnet_ids = aws_subnet.public.*.id
 
-  tags = merge(
-    {
-      Name = "${var.name}-Public"
-    },
-    var.tags
-  )
+  tags = merge({ Name = "${var.name}-Public" }, var.tags)
 
   lifecycle {
     create_before_destroy = true
@@ -85,12 +65,7 @@ resource "aws_network_acl" "private" {
   vpc_id     = aws_vpc.this.id
   subnet_ids = aws_subnet.private.*.id
 
-  tags = merge(
-    {
-      Name = "${var.name}-Private"
-    },
-    var.tags
-  )
+  tags = merge({ Name = "${var.name}-Private" }, var.tags)
 
   lifecycle {
     create_before_destroy = true
@@ -136,12 +111,7 @@ resource "aws_network_acl_rule" "private_egress" {
 resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.this.id
 
-  tags = merge(
-    {
-      Name = var.name
-    },
-    var.tags
-  )
+  tags = merge({ Name = var.name }, var.tags)
 
   lifecycle {
     create_before_destroy = true
@@ -151,12 +121,7 @@ resource "aws_internet_gateway" "this" {
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.this.id
 
-  tags = merge(
-    {
-      Name = "${var.name}-Public"
-    },
-    var.tags
-  )
+  tags = merge({ Name = "${var.name}-Public" }, var.tags)
 
   lifecycle {
     create_before_destroy = true
@@ -166,12 +131,7 @@ resource "aws_route_table" "public" {
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.this.id
 
-  tags = merge(
-    {
-      Name = "${var.name}-Private"
-    },
-    var.tags
-  )
+  tags = merge({ Name = "${var.name}-Private" }, var.tags)
 
   lifecycle {
     create_before_destroy = true
@@ -231,12 +191,7 @@ resource "aws_iam_role" "flow_log" {
   name_prefix        = "vpc-flow-log-${var.name}-"
   assume_role_policy = data.aws_iam_policy_document.flow_log_assume_role.json
 
-  tags = merge(
-    {
-      Name = "vpc-flow-log-${var.name}"
-    },
-    var.tags
-  )
+  tags = merge({ Name = "vpc-flow-log-${var.name}" }, var.tags)
 
   lifecycle {
     create_before_destroy = true
@@ -264,12 +219,7 @@ resource "aws_cloudwatch_log_group" "flow_log" {
   retention_in_days = var.flow_log_retention_in_days
   kms_key_id        = var.kms_key_id
 
-  tags = merge(
-    {
-      Name = "vpc-flow-log-${var.name}"
-    },
-    var.tags
-  )
+  tags = merge({ Name = "vpc-flow-log-${var.name}" }, var.tags)
 }
 
 resource "aws_flow_log" "this" {
@@ -281,10 +231,5 @@ resource "aws_flow_log" "this" {
   traffic_type         = "ALL"
   log_destination      = aws_cloudwatch_log_group.flow_log[0].arn
 
-  tags = merge(
-    {
-      Name = "vpc-flow-log-${var.name}"
-    },
-    var.tags
-  )
+  tags = merge({ Name = "vpc-flow-log-${var.name}" }, var.tags)
 }
