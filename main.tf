@@ -188,28 +188,22 @@ data "aws_iam_policy_document" "flow_log_permission" {
 resource "aws_iam_role" "flow_log" {
   count = var.enable_vpc_flow_log ? 1 : 0
 
-  name_prefix        = "vpc-flow-log-${var.name}-"
+  name_prefix        = "${substr("flow-log-${var.name}", 0, 37)}-"
   assume_role_policy = data.aws_iam_policy_document.flow_log_assume_role.json
 
-  tags = merge({ Name = "vpc-flow-log-${var.name}" }, var.tags)
+  tags = merge({ Name = "flow-log-${var.name}" }, var.tags)
 
   lifecycle {
     create_before_destroy = true
   }
 }
 
-resource "aws_iam_policy" "flow_log" {
+resource "aws_iam_role_policy" "flow_log" {
   count = var.enable_vpc_flow_log ? 1 : 0
 
-  name_prefix = "vpc-flow-log-${var.name}-"
-  policy      = data.aws_iam_policy_document.flow_log_permission.json
-}
-
-resource "aws_iam_role_policy_attachment" "flow_log" {
-  count = var.enable_vpc_flow_log ? 1 : 0
-
-  role       = aws_iam_role.flow_log[0].name
-  policy_arn = aws_iam_policy.flow_log[0].arn
+  role   = aws_iam_role.flow_log[0].name
+  name   = "flow-log"
+  policy = data.aws_iam_policy_document.flow_log_permission.json
 }
 
 resource "aws_cloudwatch_log_group" "flow_log" {
@@ -219,7 +213,7 @@ resource "aws_cloudwatch_log_group" "flow_log" {
   retention_in_days = var.flow_log_retention_in_days
   kms_key_id        = var.kms_key_id
 
-  tags = merge({ Name = "vpc-flow-log-${var.name}" }, var.tags)
+  tags = merge({ Name = "flow-log-${var.name}" }, var.tags)
 }
 
 resource "aws_flow_log" "this" {
