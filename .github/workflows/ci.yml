@@ -7,30 +7,21 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          curl -Lo /tmp/terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/download/"$DOC_VERSION"/terraform-docs-"$DOC_VERSION"-$(uname)-amd64.tar.gz
-          tar -xzf /tmp/terraform-docs.tar.gz -C /tmp
-          chmod +x /tmp/terraform-docs
-          sudo mv /tmp/terraform-docs /usr/local/bin/terraform-docs
-        env:
-          DOC_VERSION: v0.15.0
+          curl -L "$(curl -s https://api.github.com/repos/terraform-docs/terraform-docs/releases/latest | grep -o -E -m 1 "https://.+?-linux-amd64.tar.gz")" > terraform-docs.tgz && tar -xzf terraform-docs.tgz terraform-docs && rm terraform-docs.tgz && chmod +x terraform-docs && sudo mv terraform-docs /usr/bin/
         name: Install terraform-docs
-      - run: terraform init
-        name: Terraform init
-      - uses: pre-commit/action@v2.0.0
-        name: Run pre-commit
-      - run: terraform validate
-        name: Run terraform validate
-
-  Compliance:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
       - run: |
           python -m pip install --upgrade pip
           pip install checkov
-        name: Install dependencies
-      - run: checkov -d .
-        name: Run checkov
+        name: Install checkov
+      - run: |
+          curl -L "$(curl -s https://api.github.com/repos/aquasecurity/tfsec/releases/latest | grep -o -E -m 1 "https://.+?tfsec-linux-amd64")" > tfsec && chmod +x tfsec && sudo mv tfsec /usr/bin/
+        name: Install tfsec
+      - run: terraform init
+        name: Terraform init
+      - uses: pre-commit/action@v2.0.0
+        name: Run pre-commit
+      - run: terraform validate
+        name: Run terraform validate
