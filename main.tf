@@ -188,7 +188,7 @@ data "aws_iam_policy_document" "flow_log_permission" {
 resource "aws_iam_role" "flow_log" {
   count = var.enable_vpc_flow_log ? 1 : 0
 
-  name_prefix        = "${substr("flow-log-${var.name}", 0, 37)}-"
+  name_prefix        = "${substr("${var.name}-flow-log", 0, 37)}-"
   assume_role_policy = data.aws_iam_policy_document.flow_log_assume_role.json
 
   tags = merge({ Name = "flow-log-${var.name}" }, var.tags)
